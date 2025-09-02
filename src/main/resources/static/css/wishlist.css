@@ -1,0 +1,53 @@
+.Navbar{
+    display:grid;
+    grid-template-columns: 300px 1fr 110px;
+    margin:60px;
+}
+
+.Logo_img{
+    width:238px;
+    height:70px;
+}
+
+.Navbar_Icons{
+    display:flex;
+    gap:42px;
+    margin-top:25px;
+}
+.Icons{
+    height:33px;
+    width:33px;
+}
+
+.heading{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+tr.border_bottom td {
+    border-bottom: 1px solid black;
+    padding-bottom: 2%;
+    margin-right: 10%;
+    padding-top: 1%;
+  }
+
+  .btn-primary {
+    background-color: rgba(255, 125, 5, 0.3);
+    border: none;
+    color: black;
+    margin: 30px;
+    border-radius: 4px;
+   
+}
+
+.btn.btn-primary:hover {
+    background-color: rgba(255, 125, 5, 0.5);
+}
+
+.checkout-checkbox {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    transform: scale(1.3); /* makes it bigger */
+    accent-color: #0d6efd; /* Bootstrap blue for modern browsers */
+}

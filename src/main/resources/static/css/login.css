@@ -1,0 +1,118 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(255, 125, 5, 0.3);
+    margin-bottom: 30px;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+
+}
+
+.login {
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password {
+    margin-bottom: -1.5rem;
+}
+
+
+.login-container img {
+    background-color: rgba(255, 125, 5, 0.3);
+    max-width: 150px;
+    margin-bottom: 3rem;
+}
+
+.form-control {
+    border: none;
+    background-color: rgba(255, 125, 5, 0.3);
+    height: 50px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.btn.btn-primary {
+    background-color: rgba(255, 125, 5, 0.35);
+    border: none;
+    color: black;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn.btn-primary:hover {
+    background-color: rgba(255, 125, 5, 0.6);
+    color: black;
+}
+
+
+.forgot-password {
+    text-align: left;
+    margin-top: 0.5rem;
+    color: #FF7D05;
+    margin-right: 200px;
+}
+
+.mt-3 {
+    text-align: left;
+    margin-right: 160px;
+}
+
+.register-link {
+    text-align: right;
+    margin-top: 0.5rem;
+    color: #FF7D05;
+    margin-right: 56px;
+
+}
+
+h6 {
+    display: left;
+    margin-block-start: 1.33em;
+    margin-inline-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-align: left;
+}
+
+.text {
+    margin-top: 20px;
+}
+
+/* Alerts inside login container */
+.login-container .alert {
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius: 8px; /* slightly rounded corners */
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Error alert (login failure) */
+.login-container .alert-danger {
+    background-color: rgba(255, 125, 5, 0.2); /* soft orange background */
+    color: #842029; /* darker text for contrast */
+    border: 1px solid rgba(255, 125, 5, 0.5);
+}
+
+/* Success alert (logout) */
+.login-container .alert-success {
+    background-color: rgba(0, 200, 100, 0.2); /* soft green background */
+    color: #0f5132; /* darker green text */
+    border: 1px solid rgba(0, 200, 100, 0.5);
+}
+
+  

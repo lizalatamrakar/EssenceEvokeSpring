@@ -1,0 +1,59 @@
+<!-- define a fragment named "navbar" -->
+<div th:fragment="navbar" class="Navbar">
+    <div class="Logo">
+        <a th:href="@{/home}">
+            <img class="Logo_img" th:src="@{/image/brandlogo.jpg}" alt="logo"/>
+        </a>
+    </div>
+    <div>
+        <input class="search_bar" type="text" placeholder="Search products" style="padding-left: 4%; margin-left: 6%;">
+        <!--        todo need to implement search functionality-->
+        <img class="search" th:src="@{/image/search.png}" alt="search" style="margin-left: -71%;">
+
+    </div>
+    <!--    todo need to configure the wishlist.html and profile.html-->
+    <div class="Navbar_Icons" style="margin-bottom: 19%;">
+        <a th:href="@{/cart}" title="My Cart">
+            <img class="Icons" th:src="@{/image/cart.png}" alt="icon">
+        </a>
+        <a th:href="@{/wishlist}" title="Wishlist">
+            <img class="Icons" th:src="@{/image/heart_66744.png}" alt="icon">
+        </a>
+        <a th:href="@{/profile}" title="Profile">
+            <img class="Icons" th:src="@{/image/user_149452.png}" alt="icon">
+        </a>
+        <!-- Show only if user is authenticated -->
+        <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}" title="Logout">
+            <img class="Icons" th:src="@{/image/logout.png}" alt="Logout">
+        </a>
+    </div>
+</div>
+
+
+<!--todo logout DONE-->
+<!--todo profile for the user DONE-->
+<!--todo resend confirmation link functionality.  DONE-->
+<!--todo need to save the profile information for the user DONE-->
+<!--todo sending confirmation email, after registering DONE-->
+<!--todo wish list saved to the user DONE-->
+<!--todo product display page DONE-->
+<!--todo stock for the product DONE-->
+<!-- todo cart, for the user DONE-->
+<!--todo show the stock in the product display page DONE-->
+<!--todo checkout page done-->
+<!--todo buy now page DONE-->
+<!--todo buy now from the product display page DONE-->
+<!--todo user purchase history creation DONE-->
+<!--todo checkout page with Esewa and Khalti (fake validation) last DONE-->
+<!--todo, hide the pin in the esewa, khalti validation DONE.-->
+
+<!--todo link up the purchase history with the order (purchase_history is basically the order), need to show it in the backend. -->
+<!-- todo user list in the admin (where we can view wishlists, other profile information-->
+<!-- todo search product functionality-->
+<!--todo forgot email, password functionality-->
+<!-- todo user roles, for admin and normal users-->
+<!--todo view orders section-->
+<!--todo order tracking, (controlled from the admin side)-->
+<!--todo implement paginations-->
+<!--todo error page-->
+<!-- todo discount, promo code-->

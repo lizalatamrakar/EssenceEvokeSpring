@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <!-- define a fragment named "sidebar" -->
+    <div th:fragment="sidebar" class="sidebar">
+      <div class="Logo">
+        <a th:href="@{/home}">
+          <img class="Logo_img" th:src="@{/image/brandlogo.jpg}" alt="logo"/>
+        </a>
+      </div>
+
+      <h3 class="text-center">Admin Portal</h3>
+      <a th:href="@{/admin/products}">Products</a>
+      <a th:href="@{/viewuser}">Registration</a>
+      <a th:href="@{/settings}">Settings</a>
+    </div>
+  </body>
+</html>

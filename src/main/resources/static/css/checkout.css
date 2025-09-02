@@ -1,0 +1,65 @@
+.Navbar{
+    display:grid;
+    grid-template-columns: 300px 1fr 110px;
+    margin:60px;
+}
+
+.Logo_img{
+    width:238px;
+    height:70px;
+}
+
+.Navbar_Icons{
+    display:flex;
+    gap:42px;
+    margin-top:25px;
+}
+.Icons{
+    height:33px;
+    width:33px;
+}
+.PaymentMethod{
+    padding-top: 5%;
+}
+.paymentImage{
+    padding-left: 5%;
+}
+
+.itemsInCart{
+    padding-bottom: 3%;
+}
+
+
+/* Hide the default radio button appearance */
+.form-check-input {
+    appearance: none; /* Remove default styles */
+    background-color: #e0e0e0; /* Default grey background */
+    border-radius: 50%; /* Circular shape */
+    width: 16px; /* Size of the radio button */
+    height: 16px; /* Size of the radio button */
+    border: 2px solid #c0c0c0; /* Grey border */
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+}
+
+/* Create a custom checkmark for when the radio button is selected */
+.form-check-input:checked::before {
+    content: ''; /* Required for pseudo-element */
+    display: block;
+    width: 12px; /* Size of the inner circle */
+    height: 12px; /* Size of the inner circle */
+    border-radius: 50%; /* Circular shape */
+    background-color: white; /* Blue color */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Adjust label styles if needed */
+.form-check-label {
+    margin-left: 20px; /* Space between radio button and label */
+    font-size: 16px; /* Font size */
+}

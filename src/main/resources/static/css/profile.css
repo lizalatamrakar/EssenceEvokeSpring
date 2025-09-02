@@ -1,0 +1,14 @@
+.Navbar{
+    display:grid;
+    grid-template-columns: 300px 1fr 110px;
+    margin:60px;
+}
+
+.Logo_img{
+    width:238px;
+    height:70px;
+}
+.Icons{
+    height:33px;
+    width:33px;
+}

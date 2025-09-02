@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!--    todo need to make it dynamic-->
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/wishlist.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/productdisplay.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+</head>
+<body style="font-family: Poppins; overflow-x: hidden;">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="heading">
+    <h4>My Cart</h4>
+</div>
+
+<div th:if="${cartMessage != null}" class="alert alert-success">
+    <span th:text="${cartMessage}"></span>
+</div>
+<form th:action="@{/checkout/create}" method="post" id="checkoutForm">
+    <div style="padding: 5%;">
+        <table style="width: 100%;">
+            <tr class="border_bottom">
+                <th><h5>Select</h5></th>
+                <th style="width: 25%"><h5>Product</h5></th>
+                <th><h5>Price</h5></th>
+                <th><h5>Quantity</h5></th>
+                <th><h5>Actions</h5></th>
+            </tr>
+            <tr class="border_bottom" th:each="p : ${cartProducts}">
+                <td>
+                    <input type="checkbox" name="productIds"
+                           th:value="${p.id}" class="checkout-checkbox">
+                </td>
+                <td style="width: 25%">
+                    <img th:src="@{${p.image}}" style="height:50%; width:50%;">
+                </td>
+                <td>Rs.<span th:text="${p.price}"></span></td>
+                <td>
+                    <!-- Quantity Control -->
+                    <div class="quantity-control">
+                        <button type="button" class="quantity-btn decrement"
+                                th:data-id="${p.id}">-
+                        </button>
+                        <input type="number"
+                               class="quantity-input"
+                               th:id="'quantity-' + ${p.id}"
+                               th:name="'quantities_' + ${p.id}"
+                               value="1" readonly>
+
+                        <button type="button" class="quantity-btn increment"
+                                th:data-id="${p.id}"
+                                th:data-stock="${p.stock}">+
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    <!-- Use buttons that trigger controller endpoints via JS or separate forms outside the table -->
+                    <button formaction="#" type="button" class="btn btn-primary">Buy Now</button>
+                    <button formaction="#" type="button" class="btn btn-danger">Remove</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="heading">
+        <button type="submit" class="btn btn-primary">Checkout</button>
+    </div>
+</form>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<style>
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .quantity-input {
+        width: 75px !important; /* force width */
+        text-align: center;
+        padding: 4px;
+        font-size: 14px;
+    }
+
+    .quantity-btn {
+        width: 30px;
+        height: 30px;
+        line-height: 1;
+        text-align: center;
+        padding: 0;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script>
+    document.querySelectorAll(".increment").forEach(button => {
+        button.addEventListener("click", function () {
+            let productId = this.getAttribute("data-id");
+            let stock = parseInt(this.getAttribute("data-stock"));
+            let quantityInput = document.getElementById("quantity-" + productId);
+            let currentValue = parseInt(quantityInput.value);
+
+            if (currentValue < stock) {
+                quantityInput.value = currentValue + 1;
+            } else {
+                alert("Only " + stock + " items in stock.");
+            }
+        });
+    });
+
+    document.querySelectorAll(".decrement").forEach(button => {
+        button.addEventListener("click", function () {
+            let productId = this.getAttribute("data-id");
+            let quantityInput = document.getElementById("quantity-" + productId);
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+    });
+</script>
+<script>
+    // Auto-hide alerts after 5 seconds
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.login-container .alert');
+        alerts.forEach(alert => {
+            alert.style.transition = 'opacity 0.5s';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 5000);
+</script>
+<script>
+    document.getElementById("checkoutForm").addEventListener("submit", function (event) {
+        let checked = document.querySelectorAll(".checkout-checkbox:checked").length;
+        if (checked === 0) {
+            event.preventDefault();
+            alert("Please select at least one product to checkout.");
+        }
+    });
+</script>
+
+</body>
+</html>

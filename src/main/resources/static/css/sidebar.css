@@ -1,0 +1,37 @@
+.sidebar {
+  height: 100vh;
+  background-color: white;
+  color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  padding-top: 20px;
+  overflow: auto;
+}
+.sidebar img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+.sidebar h3 {
+  text-align: left;
+  margin: 0;
+  padding: 10px 15px;
+}
+.sidebar a {
+  color: black;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid rgba(255, 125, 5, 0.3);
+}
+.sidebar .Logo a {
+  border-bottom: none;
+}
+.sidebar .Logo a:hover {
+  background-color: white;
+}
+.sidebar a:hover {
+  background-color: rgba(255, 125, 5, 0.3);
+}

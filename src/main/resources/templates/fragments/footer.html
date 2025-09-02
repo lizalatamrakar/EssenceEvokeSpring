@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- define a fragment named "footer" -->
+<div th:fragment = "footer" class="footer">
+    <div class="row">
+        <div class="col">
+            <h5>QUICK LINKS</h5>
+            <div class="row footer-margin-bottom">
+                <a class="link-customized" th:href="@{/home}">
+                    Home
+                </a>
+            </div>
+            <div class="row footer-margin-bottom">
+                <a class="link-customized" th:href="@{/wishlist}">
+                    Wishlist
+                </a>
+            </div>
+            <div class="row footer-margin-bottom">
+                <a class="link-customized" href="#">
+                    Shop
+                </a>
+            </div>
+            <div class="row footer-margin-bottom">
+                <a class="link-customized" href="#">
+                    Privacy Policy
+                </a>
+            </div>
+            <div class="row footer-margin-bottom">
+                <a class="link-customized" th:href="@{/admin/products}">
+                    Admin
+                </a>
+            </div>
+        </div>
+        <div class="col contact-info">
+<!--            todo need to make dynamic-->
+            <h5>CONTACT INFORMATION</h5>
+            <div class="row footer-margin-bottom">
+                <a class="link-customized" style="margin-left: -16%;">
+                    +977 15970111
+                </a>
+            </div>
+            <div class="row footer-margin-bottom">
+                <a class="link-customized" style="margin-left: 4%;">
+                    essenceevokebeauty@gmail.com
+                </a>
+            </div>
+            <div class="row footer-margin-bottom">
+                <a class="link-customized" style="margin-left: -14%;">
+                    Lalitpur, Nepal
+                </a>
+            </div>
+        </div>
+        <div class="col follow-us">
+            <h5>FOLLOW US</h5>
+            <img th:src="@{/image/fa.png}">
+            <img th:src="@{/image/ins.png}">
+            <img th:src="@{/image/twi.png}">
+        </div>
+    </div>
+    <p style="margin-left: 38%;">
+        &copy; Copyright 2023 | All Rights Reserved</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+/* ===================== */
+/* NAVBAR                */
+/* ===================== */
+.Navbar {
+    display: grid;
+    grid-template-columns: 300px 1fr auto; /* logo | search | icons */
+    margin: 60px;
+    align-items: center;
+    padding-right: 40px; /* breathing room on right */
+}
+
+.Logo_img {
+    width: 238px;
+    height: 70px;
+}
+
+.search_bar {
+    margin: 0 auto;        /* center search bar in its grid column */
+    height: 50%;
+    width: 90%;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    padding-left: 40px;    /* extra padding for icon space */
+    font-size: 16px;
+}
+
+.search {
+    position: relative;
+    left: -85%;
+    top: -35px;
+    height: 20px;
+    width: 20px;
+}
+
+.Navbar_Icons {
+    display: flex;
+    gap: 30px;             /* space between icons */
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.Icons {
+    height: 33px;
+    width: 33px;
+    cursor: pointer;
+}
+
+/* ===================== */
+/* HEADING               */
+/* ===================== */
+.heading {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===================== */
+/* BUTTONS               */
+/* ===================== */
+.btn-primary {
+    background-color: rgba(255, 125, 5, 0.3);
+    border: none;
+    color: black;
+    margin-bottom: 30px;
+    border-radius: 4px;
+}
+
+/* ===================== */
+/* FOOTER                */
+/* ===================== */
+.footer {
+    background-color: rgba(255, 125, 5, 0.3);
+}
+
+/* ===================== */
+/* RESPONSIVE QUERIES    */
+/* ===================== */
+@media (max-width: 1200px) {
+    .Navbar {
+        grid-template-columns: 200px 1fr auto;
+        margin: 40px;
+        padding-right: 30px;
+    }
+
+    .Logo_img {
+        width: 150px;
+        height: auto;
+    }
+
+    .Navbar_Icons {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .Navbar {
+        grid-template-columns: 150px 1fr auto;
+        margin: 30px;
+        padding-right: 20px;
+    }
+
+    .Logo_img {
+        width: 100px;
+        height: auto;
+    }
+
+    .Navbar_Icons {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .Navbar {
+        grid-template-columns: 100px 1fr auto;
+        margin: 20px;
+        padding-right: 15px;
+    }
+
+    .Logo_img {
+        width: 80px;
+        height: auto;
+    }
+
+    .Navbar_Icons {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .Navbar {
+        grid-template-columns: 1fr;
+        margin: 20px;
+        padding-right: 0;
+    }
+
+    .Logo_img {
+        width: 60px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .Navbar_Icons {
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .search_bar {
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    .search {
+        left: -90%;
+        top: -30px;
+    }
+}
