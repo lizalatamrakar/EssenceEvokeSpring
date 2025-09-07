@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            margin-left: 260px; /* Ensure content does not overlap with sidebar */
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(255, 125, 5, 0.3);
+            color: black;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 175, 105, 0.0);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 175, 105, 0.15);
+        }
+    </style>
+</head>
+<body>
+<!-- Include the sidebar from sidebar.jsp -->
+<div th:replace="fragments/sidebar :: sidebar"></div>
+
+<!-- Main content -->
+<br>
+<div class="content">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0;">Orders.</h3>
+    </div>
+    <hr>
+
+    <table>
+        <thead>
+        <tr>
+            <th>S.N.</th>
+            <th>Transaction Id</th>
+            <th>Status</th>
+            <th>Payment Method</th>
+            <th>Total Amount</th>
+            <th>Purchase Date</th>
+            <th>User Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order, iterStat : ${histories}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${order.transactionId}">Sample Name</td>
+            <td th:text="${order.status}">Sample Description</td>
+            <td th:text="${order.paymentMethod}">0.00</td>
+            <td th:text="${order.totalAmount}">0</td>
+            <td th:text="${order.purchaseDate}">false</td>
+            <td th:text="${order.userEmail}">false</td>
+            <td style="display: flex; gap: 10px;">
+                <button type="button"
+                        class="btn btn-sm btn-warning"
+                        data-toggle="modal"
+                        th:attr="data-target='#updateStatusModal-' + ${order.id}">
+                    Update Status
+                </button>
+                <!-- View Image Button -->
+                <button type="button"
+                        class="btn btn-sm btn-info"
+                        data-toggle="modal"
+                        th:attr="data-target='#orderLineItemModal-' + ${order.id}">
+                    View Order Details
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal for viewing image (inside loop!) -->
+    <div th:each="order : ${histories}">
+        <div class="modal fade" th:id="'orderLineItemModal-' + ${order.id}" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" th:text="${order.transactionId}"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>S.N.</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Purchase Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="line, stat : ${order.lineItems}">
+                                <td th:text="${stat.count}"></td>
+                                <td th:text="${line.productName}"></td>
+                                <td th:text="${line.quantity}"></td>
+                                <td th:text="${line.priceAtPurchase}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update Status Modal -->
+        <div class="modal fade" th:id="'updateStatusModal-' + ${order.id}" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Status for Order
+                            <span th:text="${order.transactionId}"></span>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <!-- Form inside modal -->
+                    <form th:action="@{/update-purchase-history-status}" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="purchaseHistoryId" th:value="${order.id}"/>
+                            <div class="form-group">
+                                <label for="statusSelect">Select Status</label>
+                                <select class="form-control" id="statusSelect" name="status">
+                                    <option value="Payment-Completed" th:selected="${order.status == 'Payment-Completed'}">Payment-Completed</option>
+                                    <option value="Verified" th:selected="${order.status == 'Verified'}">Verified</option>
+                                    <option value="Processing" th:selected="${order.status == 'Processing'}">Processing</option>
+                                    <option value="Handed Over to Delivery" th:selected="${order.status == 'Handed Over to Delivery'}">Handed Over to Delivery</option>
+                                    <option value="Arriving" th:selected="${order.status == 'Arriving'}">Arriving</option>
+                                    <option value="Delivered" th:selected="${order.status == 'Delivered'}">Delivered</option>
+                                    <option value="Canceled" th:selected="${order.status == 'Canceled'}">Canceled</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

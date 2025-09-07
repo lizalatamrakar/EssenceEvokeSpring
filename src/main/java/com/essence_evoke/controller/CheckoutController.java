@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
+
 
 import java.util.*;
 
@@ -245,7 +246,7 @@ public class CheckoutController {
         history.setTotalAmount(total);
         history.setPaymentMethod(paymentMethod);
         history.setTransactionId(UUID.randomUUID().toString());
-        history.setStatus("COMPLETED");
+        history.setStatus("Payment-Completed");
 
         // Save history first
         PurchaseHistory savedHistory = purchaseHistoryService.save(history);
@@ -259,6 +260,15 @@ public class CheckoutController {
             lineItem.setPriceAtPurchase(item.getPrice());
 
             purchaseHistoryLineItemService.save(lineItem);
+
+            // updating the stock in the product
+            Product orderedProduct = productService.getProductById(item.getProduct().getId());
+            Integer stock = orderedProduct.getStock();
+            stock -= item.getQuantity();
+            orderedProduct.setStock(stock);
+
+            productService.saveProduct(orderedProduct);
+
         }
 
         // Mark checkout items inactive
