@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Purchase History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/productdisplay.css}">
+    <link rel="stylesheet" th:href="@{/css/wishlist.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+</head>
+<body style="font-family: Poppins; overflow-x: hidden;">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container mt-5">
+    <h2 class="mb-4">My Purchase History</h2>
+
+    <!-- If no histories -->
+    <div th:if="${#lists.isEmpty(histories)}" class="alert alert-info">
+        You don’t have any purchase history yet.
+    </div>
+
+    <!-- Loop through each purchase history -->
+    <div th:each="history : ${histories}" class="card mb-4 shadow-sm">
+        <div class="card-header d-flex justify-content-between">
+            <span>
+                <strong>Transaction ID:</strong> <span th:text="${history.transactionId}"></span>
+            </span>
+            <span>
+                <strong>Date:</strong> <span th:text="${history.purchaseDate}"></span>
+            </span>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>Total Amount:</strong> Rs. <span th:text="${history.totalAmount}"></span><br>
+                <strong>Status:</strong> <span th:text="${history.status}"></span><br>
+                <strong>Payment Method:</strong> <span th:text="${history.paymentMethod}"></span>
+            </p>
+
+            <!-- Line Items Table -->
+            <h6>Purchased Items</h6>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price at Purchase</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${history.lineItems}">
+                        <td th:text="${item.productName}"></td>
+                        <td th:text="${item.quantity}"></td>
+                        <td>Rs. <span th:text="${item.priceAtPurchase}"></span></td>
+                        <td>
+                            Rs. <span th:text="${item.quantity * item.priceAtPurchase}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script th:src="@{/js/navbar-search.js}"></script>
+</body>
+</html>

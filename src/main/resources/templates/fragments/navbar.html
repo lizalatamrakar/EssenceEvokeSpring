@@ -5,19 +5,37 @@
             <img class="Logo_img" th:src="@{/image/brandlogo.jpg}" alt="logo"/>
         </a>
     </div>
-    <div>
-        <input class="search_bar" type="text" placeholder="Search products" style="padding-left: 4%; margin-left: 6%;">
-        <!--        todo need to implement search functionality-->
+    <!--        <input class="search_bar" type="text" placeholder="Search products" style="padding-left: 4%; margin-left: 6%;">-->
+    <!--        &lt;!&ndash;        todo need to implement search functionality&ndash;&gt;-->
+    <!--        <img class="search" th:src="@{/image/search.png}" alt="search" style="margin-left: -71%;">-->
+
+    <div style="position: relative; display: inline-block;">
+        <input id="searchBar"
+               class="search_bar"
+               type="text"
+               placeholder="Search products"
+               style="padding-left: 4%; margin-left: 6%;">
+
         <img class="search" th:src="@{/image/search.png}" alt="search" style="margin-left: -71%;">
 
+        <!-- Results dropdown -->
+        <div id="searchResults"
+             style="position:absolute; top:100%; left:6%; width:300px; background:white;
+                border:1px solid #ccc; display:none; z-index:999; max-height:300px; overflow-y:auto;">
+        </div>
     </div>
+
+
     <!--    todo need to configure the wishlist.html and profile.html-->
-    <div class="Navbar_Icons" style="margin-bottom: 19%;">
+    <div class="Navbar_Icons" style="margin-bottom: 4%;">
         <a th:href="@{/cart}" title="My Cart">
             <img class="Icons" th:src="@{/image/cart.png}" alt="icon">
         </a>
         <a th:href="@{/wishlist}" title="Wishlist">
             <img class="Icons" th:src="@{/image/heart_66744.png}" alt="icon">
+        </a>
+        <a th:href="@{/purchase-history/me}" title="MyOrders">
+            <img class="Icons" th:src="@{/image/my-orders.png}" alt="icon">
         </a>
         <a th:href="@{/profile}" title="Profile">
             <img class="Icons" th:src="@{/image/user_149452.png}" alt="icon">
@@ -48,15 +66,17 @@
 <!--todo, hide the pin in the esewa, khalti validation DONE.-->
 <!--todo link up the purchase history with the order (purchase_history is basically the order), need to show it in the backend. DONE -->
 <!--todo order tracking, (controlled from the admin side) DONE-->
+<!--todo view  MY orders section FOR THE USER DONE -->
+<!-- todo search product functionality DONE-->
 
 <!-- todo user list in the admin (where we can view wishlists, other profile information-->
-<!-- todo search product functionality-->
 <!--todo forgot email, password functionality-->
 <!-- todo user roles, for admin and normal users-->
-<!--todo view  MY orders section FOR THE USER-->
 <!--todo implement paginations-->
 <!--todo error page-->
 <!-- todo discount, promo code-->
+<!--todo "session" (logout automatically after a certain time) -->
+<!--todo cancel order for the user-->
 
 <!--
 order statuses:

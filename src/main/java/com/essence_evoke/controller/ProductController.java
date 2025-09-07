@@ -1,5 +1,6 @@
 package com.essence_evoke.controller;
 
+import com.essence_evoke.dto.ProductDTO;
 import com.essence_evoke.model.Product;
 import com.essence_evoke.model.User;
 import com.essence_evoke.service.ProductService;
@@ -225,6 +226,15 @@ public class ProductController {
 	public String deleteProduct(@PathVariable Long id) {
 		productService.deleteProductById(id);
 		return "redirect:/admin/products";
+	}
+
+	@GetMapping("/search")
+	@ResponseBody
+	public List<ProductDTO> searchProducts(@RequestParam String keyword) {
+		return productService.searchProducts(keyword)
+				.stream()
+				.map(p -> new ProductDTO(p.getId(), p.getName(), p.getImage()))
+				.toList();
 	}
 
 }

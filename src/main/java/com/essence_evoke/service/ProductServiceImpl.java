@@ -44,4 +44,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findTop4ByIsTopPickTrue();
     }
 
+    @Override
+    public List<Product> searchProducts(String keyword) {
+        return productRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(keyword, keyword);
+    }
+
 }

@@ -28,7 +28,6 @@
 <h2 style="margin:60px;">New Arrivals</h2>
 <div class="Body_content">
     <div class="Box" th:each="p : ${productList}" th:if="${p.isNewArrival}">
-        <!--        todo need product display to be configured-->
         <a th:href="@{/productdisplay/{id}(id=${p.id})}" class="no-link-style">
             <div>
                 <img class="Product_image" th:src="@{${p.image}}" alt="Product">
@@ -82,5 +81,8 @@
         padding: 12px 20px 12px 40px;
     }
 </style>
+
+<script th:src="@{/js/navbar-search.js}"></script>
+
 </body>
 </html>
