@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,5 +73,15 @@ public class UserServiceImpl implements UserService {
 
         tokenRepository.save(verificationToken); // safe save/update
 
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

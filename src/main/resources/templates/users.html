@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            margin-left: 260px; /* Ensure content does not overlap with sidebar */
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(255, 125, 5, 0.3);
+            color: black;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 175, 105, 0.0);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 175, 105, 0.15);
+        }
+    </style>
+</head>
+<body>
+<!-- Include the sidebar from sidebar.jsp -->
+<div th:replace="fragments/sidebar :: sidebar"></div>
+
+<!-- Main content -->
+<br>
+<div class="content">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0;">Users List.</h3>
+    </div>
+    <hr>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Full Name</th>
+            <th>Phone Number</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.email}">Sample Name</td>
+            <td th:text="${user.fullName}">Sample Description</td>
+            <td th:text="${user.phoneNumber}">0.00</td>
+            <td th:text="${user.role == 'ROLE_USER' ? 'USER' : (user.role == 'ROLE_ADMIN' ? 'ADMIN' : user.role)}"></td>
+            <td th:text="${user.enabled}">false</td>
+            <td style="display: flex; gap: 10px;">
+                <!-- View Image Button -->
+                <button type="button"
+                        class="btn btn-sm btn-info"
+                        data-toggle="modal"
+                        th:attr="data-target='#imageModal-' + ${user.id}">
+                    Update Role
+                </button>
+            </td>
+            <!-- Modal for viewing image (inside loop!) -->
+            <div class="modal fade" th:id="'imageModal-' + ${user.id}" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" th:text="${user.fullName}">User Role</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <!-- Form inside modal -->
+                        <form th:action="@{/admin/update-user-role}" method="post">
+                            <div class="modal-body">
+                                <input type="hidden" name="userEmail" th:value="${user.email}"/>
+                                <div class="form-group">
+                                    <label for="roleSelect">Update Role</label>
+                                    <select class="form-control" id="roleSelect" name="role">
+                                        <option value="ROLE_USER"
+                                                th:selected="${user.role == 'ROLE_USER'}">User
+                                        </option>
+                                        <option value="ROLE_ADMIN"
+                                                th:selected="${user.role == 'ROLE_ADMIN'}">Admin
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

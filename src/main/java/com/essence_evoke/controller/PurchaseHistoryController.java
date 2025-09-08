@@ -25,7 +25,7 @@ public class PurchaseHistoryController {
     private UserService userService;
 
     // 1. Admin: show all purchase histories
-    @GetMapping("/purchase-history")
+    @GetMapping("/admin/purchase-history")
     public String getAllHistories(Model model) {
         List<PurchaseHistoryDTO> histories = purchaseHistoryService.getAllHistories();
         model.addAttribute("histories", histories);
@@ -44,7 +44,7 @@ public class PurchaseHistoryController {
         return "my_purchase_history"; // points to src/main/resources/templates/purchase-history/my-history.html
     }
 
-    @PostMapping("/update-purchase-history-status")
+    @PostMapping("/admin/update-purchase-history-status")
     public String updateOrderStatus(
             @RequestParam("purchaseHistoryId") Long purchaseHistoryId,
             @RequestParam("status") String status,
@@ -55,6 +55,6 @@ public class PurchaseHistoryController {
         purchaseHistory.setStatus(status);
         purchaseHistoryService.save(purchaseHistory);
         redirectAttributes.addFlashAttribute("success", "Order status updated successfully!");
-        return "redirect:/purchase-history";
+        return "redirect:/admin/purchase-history";
     }
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Access Denied</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 50px;
+        }
+        .error-container {
+            display: inline-block;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+        }
+        .error-container img {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        .error-container h1 {
+            font-size: 2rem;
+            color: #dc3545;
+        }
+        .error-container p {
+            color: #6c757d;
+        }
+        .error-container a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        .error-container a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <img th:src="@{/image/access-denied.png}" alt="Access Denied"/>
+    <h1>Access Denied</h1>
+    <p>Sorry, you are not allowed to access this page.</p>
+    <a th:href="@{/home}">Go Back Home</a>
+</div>
+</body>
+</html>

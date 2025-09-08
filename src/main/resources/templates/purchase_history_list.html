@@ -154,7 +154,7 @@
                     </div>
 
                     <!-- Form inside modal -->
-                    <form th:action="@{/update-purchase-history-status}" method="post">
+                    <form th:action="@{/admin/update-purchase-history-status}" method="post">
                         <div class="modal-body">
                             <input type="hidden" name="purchaseHistoryId" th:value="${order.id}"/>
                             <div class="form-group">
