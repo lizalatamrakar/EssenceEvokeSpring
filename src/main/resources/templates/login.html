@@ -21,6 +21,10 @@
         <h5>Log In</h5>
     </div>
 
+    <!-- Session expired -->
+    <div th:if="${param.sessionExpired}" class="alert alert-warning">
+        Your session has expired. Please log in again.
+    </div>
 
     <!-- Expired token with resend option -->
     <div th:if="${error != null and error == 'expiredToken'}" class="alert alert-warning">
