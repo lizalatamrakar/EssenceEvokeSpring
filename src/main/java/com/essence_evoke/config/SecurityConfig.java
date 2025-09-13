@@ -43,7 +43,8 @@ public class SecurityConfig {
                                 "/uploads/**",
                                 "/",
                                 "/confirm",
-                                "/search"
+                                "/search",
+                                "/productdisplay/**"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // restrict admin routes
                         .anyRequest().authenticated()

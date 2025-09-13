@@ -66,8 +66,17 @@
                 </td>
                 <td>
                     <!-- Use buttons that trigger controller endpoints via JS or separate forms outside the table -->
-                    <button formaction="#" type="button" class="btn btn-primary">Buy Now</button>
-                    <button formaction="#" type="button" class="btn btn-danger">Remove</button>
+                    <!-- Buy Now via AJAX -->
+                    <button type="button"
+                            class="btn btn-primary"
+                            th:attr="data-id=${p.id}"
+                            onclick="buyNow(this)">
+                        Buy Now
+                    </button>
+                    <button type="button"
+                            class="btn btn-danger"
+                            th:attr="data-id=${p.id}"
+                            onclick="removeFromCart(this)">Remove</button>
                 </td>
             </tr>
         </table>
@@ -162,6 +171,44 @@
             alert("Please select at least one product to checkout.");
         }
     });
+</script>
+
+<script>
+    function removeFromCart(button) {
+        const productId = button.getAttribute("data-id");
+
+        fetch(`/cart/remove/${productId}`, {
+            method: "POST",
+        }).then(() => {
+            window.location.reload(); // refresh to update cart
+        });
+    }
+
+    function buyNow(button) {
+        const productId = button.getAttribute("data-id");
+        const quantityInput = document.getElementById("quantity-" + productId);
+        const quantity = parseInt(quantityInput.value);
+
+        fetch("/checkout/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `productIds=${productId}&quantities_${productId}=${quantity}`
+        }).then(response => {
+            if (response.redirected) {
+                // If backend redirects to checkout page, follow it
+                window.location.href = response.url;
+            } else {
+                return response.text();
+            }
+        }).then(data => {
+            console.log("Buy Now response:", data);
+        }).catch(err => {
+            console.error("Error in Buy Now:", err);
+        });
+    }
+
 </script>
 <script th:src="@{/js/navbar-search.js}"></script>
 </body>
