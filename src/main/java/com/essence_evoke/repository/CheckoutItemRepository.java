@@ -1,6 +1,7 @@
 package com.essence_evoke.repository;
 
 import com.essence_evoke.model.CheckoutItem;
+import com.essence_evoke.model.Product;
 import com.essence_evoke.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,4 +13,5 @@ public interface CheckoutItemRepository extends JpaRepository<CheckoutItem,Long>
     Optional<CheckoutItem> findById(Long id);
     List<CheckoutItem> findByUserAndStatus(User user, String status);
     void delete(CheckoutItem item);
+    List<CheckoutItem> findByProduct(Product product);
 }

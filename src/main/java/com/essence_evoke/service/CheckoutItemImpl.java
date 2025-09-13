@@ -1,6 +1,7 @@
 package com.essence_evoke.service;
 
 import com.essence_evoke.model.CheckoutItem;
+import com.essence_evoke.model.Product;
 import com.essence_evoke.model.User;
 import com.essence_evoke.repository.CheckoutItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,16 @@ public class CheckoutItemImpl implements CheckoutItemService {
     @Override
     public void delete(CheckoutItem item) {
         checkoutItemRepository.delete(item);
+    }
+
+    @Override
+    public List<CheckoutItem> findByProduct(Product product) {
+        return checkoutItemRepository.findByProduct(product);
+    }
+
+    @Override
+    public void deleteAll(List<CheckoutItem> checkoutItems) {
+        checkoutItemRepository.deleteAll(checkoutItems);
     }
 
 }

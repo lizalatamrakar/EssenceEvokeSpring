@@ -2,6 +2,7 @@ package com.essence_evoke.service;
 
 import com.essence_evoke.dto.PurchaseHistoryDTO;
 import com.essence_evoke.dto.PurchaseHistoryLineItemDTO;
+import com.essence_evoke.model.Product;
 import com.essence_evoke.model.PurchaseHistory;
 import com.essence_evoke.model.User;
 import com.essence_evoke.repository.PurchaseHistoryRepository;
@@ -35,13 +36,16 @@ public class PurchaseHistoryServiceImpl implements PurchaseHistoryService {
                 ph.getPaymentMethod(),
                 ph.getPurchaseDate().toString(),
                 ph.getUser().getEmail(),
-                ph.getLineItems().stream().map(li ->
-                        new PurchaseHistoryLineItemDTO(
-                                li.getProduct().getName(),
-                                li.getQuantity(),
-                                li.getPriceAtPurchase()
-                        )
-                ).toList()
+                ph.getLineItems().stream().map(li -> {
+                    String productName = (li.getProduct() != null)
+                            ? li.getProduct().getName()
+                            : "[Deleted Product]";
+                    return new PurchaseHistoryLineItemDTO(
+                            productName,
+                            li.getQuantity(),
+                            li.getPriceAtPurchase()
+                    );
+                }).toList()
         );
     }
 

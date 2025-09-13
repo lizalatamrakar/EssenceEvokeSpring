@@ -1,5 +1,5 @@
 package com.essence_evoke.model;
-
+import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +21,7 @@ public class PurchaseHistoryLineItem {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "product_id", nullable = false)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
     private Product product;
 
     @Column(nullable = false)
